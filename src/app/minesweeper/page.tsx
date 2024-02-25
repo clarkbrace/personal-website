@@ -1,14 +1,15 @@
 "use client";
 
 import Minesweepergame from "@/components/Minesweepergame";
+import TestLayer from "@/components/TestLayer";
 //import { ChangeEvent, useState } from "react";
 import { useState, useEffect, ChangeEvent } from "react";
 import React from "react";
 
 const minesweeper = () => {
-  const [rowCount, setRowCount] = useState(15);
-  const [colCount, setColCount] = useState(15);
-  const [mineCount, setMineCount] = useState(120);
+  const [rowCount, setRowCount] = useState(30);
+  const [colCount, setColCount] = useState(20);
+  const [mineCount, setMineCount] = useState(145);
 
   function updateRowCount(event: ChangeEvent<HTMLInputElement>) {
     setRowCount(Number(event.target.value));
@@ -21,8 +22,6 @@ const minesweeper = () => {
   function updateMineCount(event: ChangeEvent<HTMLInputElement>) {
     setMineCount(Number(event.target.value));
   }
-
-  function handleNewGame() {}
 
   useEffect(() => {
     if (mineCount > colCount * rowCount) {
@@ -75,11 +74,9 @@ const minesweeper = () => {
             className="bg-gray-200 ml-3"
           ></input>
         </div>
-        <button className="flex bg-pink-50" onClick={handleNewGame}>
-          Start Game
-        </button>
         <Minesweepergame rows={rowCount} cols={colCount} mines={mineCount} />
       </div>
+      {/* <TestLayer></TestLayer> */}
     </>
   );
 };
