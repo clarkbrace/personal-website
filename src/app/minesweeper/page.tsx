@@ -1,18 +1,28 @@
 "use client";
 
-import Minesweepergame from "@/components/Minesweepergame";
-import TestLayer from "@/components/TestLayer";
-//import { ChangeEvent, useState } from "react";
-import { useState, useEffect, ChangeEvent } from "react";
+import Minesweepergamescene from "@/components/Minesweepergamescene";
+import { useState, useEffect, ChangeEvent, useRef } from "react";
 import React from "react";
 
 const minesweeper = () => {
-  const [rowCount, setRowCount] = useState(30);
+  const [showGame, setShowGame] = useState(true);
+  const [rowLength, setrowLength] = useState(30);
   const [colCount, setColCount] = useState(20);
-  const [mineCount, setMineCount] = useState(145);
+  const [mineCount, setMineCount] = useState(99);
 
-  function updateRowCount(event: ChangeEvent<HTMLInputElement>) {
-    setRowCount(Number(event.target.value));
+  const newGame = () => {
+    return (
+      <Minesweepergamescene
+        cols={colCount}
+        rowLength={rowLength}
+        mines={mineCount}
+      />
+    );
+  };
+
+  function updaterowLength(event: ChangeEvent<HTMLInputElement>) {
+    setrowLength(Number(event.target.value));
+    console.log("Updated length");
   }
 
   function updateColCount(event: ChangeEvent<HTMLInputElement>) {
@@ -24,12 +34,12 @@ const minesweeper = () => {
   }
 
   useEffect(() => {
-    if (mineCount > colCount * rowCount) {
-      let newMax = colCount * rowCount;
+    if (mineCount > colCount * rowLength) {
+      let newMax = colCount * rowLength;
       let percent = newMax / mineCount;
       setMineCount(Math.round(newMax * percent));
     }
-  });
+  }); // Specify colCount and rowLength as dependencies
 
   return (
     <>
@@ -43,8 +53,8 @@ const minesweeper = () => {
             id="Rows"
             min="5"
             max="50"
-            value={rowCount}
-            onChange={(e) => updateRowCount(e)}
+            value={rowLength}
+            onChange={(e) => updaterowLength(e)}
             className="bg-gray-200 ml-3"
           ></input>
         </div>
@@ -68,29 +78,17 @@ const minesweeper = () => {
             type="number"
             id="mines"
             min="1"
-            max={rowCount * colCount}
+            max={rowLength * colCount}
             value={mineCount}
             onChange={(e) => updateMineCount(e)}
             className="bg-gray-200 ml-3"
           ></input>
         </div>
-        <Minesweepergame rows={rowCount} cols={colCount} mines={mineCount} />
+        <button onClick={() => setShowGame(!showGame)}>Start Game</button>
+        {showGame && newGame()}
       </div>
-      {/* <TestLayer></TestLayer> */}
     </>
   );
 };
 
 export default minesweeper;
-
-class MineSweeperParam {
-  public rows: Number;
-  public columns: Number;
-  public mines: Number;
-
-  constructor(rows: Number, columns: Number, mines: Number) {
-    this.rows = rows;
-    this.columns = columns;
-    this.mines = mines;
-  }
-}
