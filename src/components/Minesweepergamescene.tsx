@@ -1,7 +1,6 @@
 "use client";
 import React from "react";
 import MinesweeperTile from "./MinesweeperTile";
-import { table } from "console";
 import { useState, useRef, useEffect } from "react";
 import { MineState } from "../Utils/MineState";
 
@@ -165,6 +164,15 @@ function revealClearSpace(
   }
 }
 
+function pairString(pair: [number, number]): string {
+  return pair.join("-");
+}
+
+function stringPair(pair: string): [number, number] {
+  let split = pair.split("-");
+  return [Number(split[0]), Number(split[1])];
+}
+
 // TODO Case where there are more mines to re-locate than free spaces
 function firstClickRelocate(
   props: Props,
@@ -192,43 +200,55 @@ function firstClickRelocate(
       .map(([c, r]) => (mM[c][r].mineValue -= mM[c][r].mineValue >= 1 ? 1 : 0));
   });
 
-  // tilesToRelocate.map(([c, r]) => {
-  //   console.log(
-  //     "mines present for",
-  //     c,
-  //     r,
-  //     getValidTiles(props, c, r, false).filter(
-  //       ([c, r]) => mM[c][r].mineValue === -1
-  //     ).length
-  //   );
-
-  //   mM[c][r].mineValue = getValidTiles(props, c, r, false).filter(
-  //     ([c, r]) => mM[c][r].mineValue === -1
-  //   ).length;
-  // });
-
-  // Create set of invilid new mine locations
-  let nonReplaceTiles = new Set();
-  getValidTiles(props, clickedCol, clickedRow, true).forEach((tile) => {
-    nonReplaceTiles.add(tile);
+  // Create set of close mine locations: Center not included. We never want a mine there
+  let surroundingTilesSet: Set<string> = new Set();
+  getValidTiles(props, clickedCol, clickedRow, true).map((tile) => {
+    surroundingTilesSet.add(pairString(tile));
   });
 
-  // Get list of avalable new mine locations
-  let freeSpaces: [number, number][] = [];
+  // Create a set of tile that suround the inital mine locations
+  let superSurroundingTilesSet: Set<string> = new Set();
+  getValidTiles(props, clickedCol, clickedRow, false).map(([c, r]) =>
+    getValidTiles(props, c, r, false).map((tile) => {
+      superSurroundingTilesSet.add(pairString(tile));
+    })
+  );
+
+  // Get list of fully avalable and inner free spaces: To be used if needed
+  let prefFreeSpaces: [number, number][] = [];
+  let secondaryFree: [number, number][] = [];
   mM.map((c, cInd) =>
     c.map((_, rInd) => {
       if (
         mM[cInd][rInd].mineValue !== -1 &&
-        !nonReplaceTiles.has([cInd, rInd])
+        !surroundingTilesSet.has(pairString([cInd, rInd]))
       ) {
-        freeSpaces.push([cInd, rInd]);
+        prefFreeSpaces.push([cInd, rInd]);
+      } else if (
+        mM[cInd][rInd].mineValue !== -1 &&
+        (cInd !== clickedCol || rInd !== clickedRow)
+      ) {
+        secondaryFree.push([cInd, rInd]);
       }
     })
   );
 
+  if (minesToRelocate.length > prefFreeSpaces.length + secondaryFree.length) {
+    alert("Sorry there are too many mines");
+  }
+
   // Relocate mines and update surounding tiles
   minesToRelocate.map(() => {
     // Get random free space and replace a tile with a mine
+    if (prefFreeSpaces.length > 0) {
+      reLocateMines(prefFreeSpaces);
+    } else if (secondaryFree.length > 0) {
+      reLocateMines(secondaryFree);
+    }
+  });
+
+  // Helper function to relocate mines
+  function reLocateMines(freeSpaces: [number, number][]) {
     let randomIndex = Math.floor(Math.random() * freeSpaces.length);
     let randomFreeSpace = freeSpaces[randomIndex];
     freeSpaces.splice(randomIndex, 1);
@@ -238,10 +258,7 @@ function firstClickRelocate(
     getValidTiles(props, randomFreeSpace[0], randomFreeSpace[1], false)
       .filter(([c, r]) => mM[c][r].mineValue > -1) // Filter by non-mine tiles
       .map(([c, r]) => (mM[c][r].mineValue += 1)); // Add 1 to each surouning non-mine tile
-
-    // Reveal all clear space
-    revealClearSpace(props, mM, clickedCol, clickedRow);
-  });
+  }
 }
 
 const Minesweepergamescene = (props: Props) => {
@@ -264,6 +281,8 @@ const Minesweepergamescene = (props: Props) => {
     clickCoords: { row: number; col: number }
   ) => {
     // Handel Left click:
+    console.log("Click Count", clickCount.current);
+
     if (
       event.button == 0 &&
       mineMatrix.current[clickCoords.col][clickCoords.row].mineState ===
@@ -271,20 +290,21 @@ const Minesweepergamescene = (props: Props) => {
     ) {
       if (
         clickCount.current === 0 &&
-        (mineMatrix.current[clickCoords.col][clickCoords.row].mineValue ===
-          -1 ||
-          mineMatrix.current[clickCoords.col][clickCoords.row].mineValue > 0)
+        mineMatrix.current[clickCoords.col][clickCoords.row].mineValue !== 0
       ) {
+        console.log("First clock not free");
         firstClickRelocate(
           props,
           mineMatrix.current,
           clickCoords.col,
           clickCoords.row
         );
-      } else if (
+      }
+      if (
         mineMatrix.current[clickCoords.col][clickCoords.row].mineValue === -1
       ) {
         // Clicked a Bomb: show all bombs and end game
+        console.log("Clocked Bomb");
         revealAllBombs(mineMatrix.current);
       } else if (
         mineMatrix.current[clickCoords.col][clickCoords.row].mineValue === 0
@@ -325,134 +345,9 @@ const Minesweepergamescene = (props: Props) => {
     // TODO Handel Middle Click
 
     // Rerender the scene to reflect changes
+    clickCount.current += 1;
     setRerender(!rerender);
   };
-  // if (
-  //   timesClicked.current === 0 &&
-  //   mineMatrix.current[coordinates.row][coordinates.col].mineValue !== 0
-  // ) {
-  //   let minesToRelocate: [number, number][] = [];
-
-  //   for (let cols = -1; cols < 2; cols++) {
-  //     for (let rows = -1; rows < 2; rows++) {
-  //       if (
-  //         coordinates.row - rows < 0 ||
-  //         coordinates.col - cols < 0 ||
-  //         coordinates.col - cols > props.rows - 1 ||
-  //         coordinates.row - rows > props.cols - 1
-  //       ) {
-  //         continue;
-  //       }
-
-  //       if (
-  //         mineMatrix.current[coordinates.row - rows][coordinates.col - cols]
-  //           .mineValue === -1
-  //       ) {
-  //         minesToRelocate.push([
-  //           coordinates.row - rows,
-  //           coordinates.col - cols,
-  //         ]);
-  //       }
-  //     }
-  //   }
-
-  //   minesToRelocate.forEach(([row, col]) => {
-  //     let space = Math.floor(Math.random() * freeSpaces.length);
-
-  //     mineMatrix.current[freeSpaces[space][0]][
-  //       freeSpaces[space][1]
-  //     ].mineValue = -1;
-
-  //     // Update all surouning tiles
-  //   });
-  // }
-  // Update tiems clicked
-  //   timesClicked.current++;
-
-  //   if (event.button == 0) {
-  //     // Left Click
-
-  //     // Prevent Clicking a flagged
-  //     if (
-  //       mineMatrix.current[coordinates.row][coordinates.col].mineState ===
-  //       MineState.Flagged
-  //     ) {
-  //       return;
-  //     }
-
-  //     // Update minematriex in responce to the outcome of clicking the tile
-  //     mineMatrix.current[coordinates.row][coordinates.col].mineValue == -1
-  //       ? mineMatrix.current.forEach((r) => {
-  //           r.forEach((tile) => {
-  //             if (tile.mineValue === -1) {
-  //               tile.mineState = MineState.Bombed;
-  //             }
-  //           });
-  //         })
-  //       : reveal([coordinates.row, coordinates.col]);
-  //   } else if (event.button == 2) {
-  //     // Right Click
-  //     if (
-  //       mineMatrix.current[coordinates.row][coordinates.col].mineState ==
-  //       MineState.Hidden
-  //     ) {
-  //       mineMatrix.current[coordinates.row][coordinates.col].mineState =
-  //         MineState.Flagged;
-  //     } else if (
-  //       mineMatrix.current[coordinates.row][coordinates.col].mineState ==
-  //       MineState.Flagged
-  //     ) {
-  //       mineMatrix.current[coordinates.row][coordinates.col].mineState =
-  //         MineState.Hidden;
-  //     }
-  //   } else if (event.button == 1) {
-  //     // Middle Click
-  //   }
-  //   console.log("Refresh");
-  //   triggerRerender(!reRender);
-  // };
-
-  // const reveal = ([row, col]: [number, number]) => {
-  //   //Set new flag for tile, update surrounding if no mine nearby
-
-  //   // if tile has no neighboring bombs
-  //   let queue: [number, number][] = [];
-  //   queue.push([row, col]);
-  //   while (queue.length > 0) {
-  //     let tmpQueue: [number, number][] = [];
-  //     queue.forEach(([t, c]) => {
-  //       console.log(t, c);
-  //       // console.log(tuple);
-  //       // console.log(typeof tuple, typeof mineMatrix);
-  //       if (
-  //         mineMatrix.current[t][c].mineValue === 0 &&
-  //         mineMatrix.current[t][c].mineState !== MineState.Revealed && // TODO Change this back
-  //         mineMatrix.current[t][c].mineState !== MineState.Flagged
-  //       ) {
-  //         mineMatrix.current[t][c].mineState = MineState.Revealed;
-  //         tmpQueue = [...tmpQueue, ...unreavealedNeighbors([t, c])];
-  //         console.log(tmpQueue);
-  //       }
-  //       // is a number,
-  //       else {
-  //         mineMatrix.current[t][c].mineState = MineState.Revealed;
-  //       }
-  //       queue = tmpQueue;
-  //     });
-  //   }
-  // };
-  // const unreavealedNeighbors = ([row, col]: [number, number]) => {
-  //   let ret: [number, number][] = [];
-  //   let safeTiles = getSafeTiles(props, row, col, true);
-
-  //   console.log("row length", props.rows, "col length", props.cols);
-  //   console.log("Safe tiles from row:", row, "col", col, safeTiles);
-
-  //   safeTiles.filter(
-  //     ([r, c]) => mineMatrix.current[r][c].mineState === MineState.Hidden
-  //   );
-  //   return safeTiles;
-  // };
 
   return (
     <div className="bg-transparent p-5 ">

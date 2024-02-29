@@ -51,7 +51,7 @@ const minesweeper = () => {
           <input
             type="number"
             id="Rows"
-            min="5"
+            min="1"
             max="50"
             value={rowLength}
             onChange={(e) => updaterowLength(e)}
@@ -64,7 +64,7 @@ const minesweeper = () => {
           <input
             type="number"
             id="Columns"
-            min="5"
+            min="1"
             max="50"
             value={colCount}
             onChange={(e) => updateColCount(e)}
@@ -78,7 +78,7 @@ const minesweeper = () => {
             type="number"
             id="mines"
             min="1"
-            max={rowLength * colCount}
+            max={rowLength * colCount - 1}
             value={mineCount}
             onChange={(e) => updateMineCount(e)}
             className="bg-gray-200 ml-3"
