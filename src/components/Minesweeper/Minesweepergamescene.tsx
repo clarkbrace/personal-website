@@ -2,7 +2,7 @@
 import React from "react";
 import MinesweeperTile from "./MinesweeperTile";
 import { useState, useRef, useEffect } from "react";
-import { MineState } from "../Utils/MineState";
+import { MineState } from "../../Utils/MineState";
 
 interface Props {
   cols: number;
@@ -11,9 +11,7 @@ interface Props {
 }
 
 function createMineGame(props: Props) {
-  // ACCESS PATTERN: [Col][Row]
-
-  // // Create  MineMatrix
+  // Create  MineMatrix
   let mineMatrix: {
     mineValue: number;
     mineState: typeof MineState.Default;
@@ -76,24 +74,6 @@ function getValidTiles(
 
   for (let currentCol = -1; currentCol < 2; currentCol++) {
     for (let rowIndex = -1; rowIndex < 2; rowIndex++) {
-      // Debugging Script
-      {
-        // console.log(
-        //   "row + rowIndex >= 0:",
-        //   row + rowIndex >= 0,
-        //   "\ncol + currentCol >= 0",
-        //   col + currentCol >= 0,
-        //   "\nrow + rowIndex < props.rowLength - 1",
-        //   row + rowIndex < props.rowLength - 1,
-        //   "\ncol + currentCol < props.cols - 1",
-        //   col + currentCol < props.cols ,
-        //   "\ncol + currentCol < props.cols - 1",
-        //   col + currentCol < props.cols ,
-        //   "\n(!(rowIndex === 0 && currentCol === 0) || center)",
-        //   !(rowIndex === 0 && currentCol === 0) || center
-        // );
-      }
-
       if (
         row + rowIndex >= 0 &&
         col + currentCol >= 0 &&
@@ -108,12 +88,14 @@ function getValidTiles(
   return freeTiles;
 }
 
-function revealAllBombs(
+function setAllBombs(
   mM: { mineValue: number; mineState: typeof MineState.Default }[][]
 ): void {
   mM.map((col) => {
     col.map((tile) => {
-      if (tile.mineValue === -1) {
+      if (tile.mineState === MineState.Flagged && tile.mineValue !== -1) {
+        tile.mineState = MineState.FalseBomb;
+      } else if (tile.mineValue === -1) {
         tile.mineState = MineState.Bombed;
       }
     });
@@ -125,52 +107,52 @@ function revealClearSpace(
   mM: { mineValue: number; mineState: typeof MineState.Default }[][],
   clickedCol: number,
   clickedRow: number
-): void {
+): number {
   // Check to make sure the incoming tile is valid
   if (
     mM[clickedCol][clickedRow].mineValue !== 0 ||
     mM[clickedCol][clickedRow].mineState !== MineState.Hidden
   ) {
-    console.log("Mine value not 0 or mine state not hidden");
-    return;
+    return 0;
   }
 
   let queue = [[clickedCol, clickedRow]];
-  // Ensure space is not a bomb
-
+  // Set Root to Revealed
+  mM[clickedCol][clickedRow].mineState = MineState.Revealed;
+  let freedCount: number = 1;
   // BFS
   while (queue.length > 0) {
     let tempQueue: [number, number][] = [];
 
     queue.forEach(([c, r]) => {
       // Case wheather the tile is blank
+
+      // if is an empty tile, aka: no number or mine then reveal and iterate on neighbors
       if (
         mM[c][r].mineValue === 0 &&
-        mM[c][r].mineState !== MineState.Revealed &&
         mM[c][r].mineState !== MineState.Flagged
       ) {
-        mM[c][r].mineState = MineState.Revealed;
-        tempQueue = [
-          ...tempQueue,
-          ...getValidTiles(props, c, r, false).filter(
-            ([c, r]) => mM[c][r].mineState === MineState.Hidden
-          ),
-        ];
-      } else {
-        mM[c][r].mineState = MineState.Revealed;
+        let adjacentTiles = getValidTiles(props, c, r, false).filter(
+          ([c, r]) =>
+            mM[c][r].mineState === MineState.Hidden && mM[c][r].mineValue !== -1
+        );
+
+        adjacentTiles.map(
+          ([c, r]) => (mM[c][r].mineState = MineState.Revealed)
+        );
+
+        freedCount += adjacentTiles.length;
+
+        tempQueue = [...tempQueue, ...adjacentTiles];
       }
-      queue = tempQueue;
     });
+    queue = tempQueue;
   }
+  return freedCount;
 }
 
 function pairString(pair: [number, number]): string {
   return pair.join("-");
-}
-
-function stringPair(pair: string): [number, number] {
-  let split = pair.split("-");
-  return [Number(split[0]), Number(split[1])];
 }
 
 // TODO Case where there are more mines to re-locate than free spaces
@@ -188,31 +170,26 @@ function firstClickRelocate(
     true
   ).filter(([c, r]) => mM[c][r].mineValue === -1);
 
-  // Remove mines: Set tiles to 0
-  minesToRelocate.map(([c, r]) => {
-    mM[c][r].mineValue = 0;
-  });
+  // Set all tiles to be relocated to 0
+  minesToRelocate.map(([c, r]) => (mM[c][r].mineValue = 0));
 
-  // Update old mine locations: Calculate the new value of the old mine locations
-  minesToRelocate.map(([c, r]) => {
-    getValidTiles(props, c, r, false)
+  // Update all squares effected by the removal of mines
+  minesToRelocate.map(([c, r]) =>
+    getValidTiles(props, c, r, true)
       .filter(([c, r]) => mM[c][r].mineValue !== -1)
-      .map(([c, r]) => (mM[c][r].mineValue -= mM[c][r].mineValue >= 1 ? 1 : 0));
-  });
+      .map(
+        ([c, r]) =>
+          (mM[c][r].mineValue = getValidTiles(props, c, r, false).filter(
+            ([c, r]) => mM[c][r].mineValue === -1
+          ).length)
+      )
+  );
 
   // Create set of close mine locations: Center not included. We never want a mine there
   let surroundingTilesSet: Set<string> = new Set();
   getValidTiles(props, clickedCol, clickedRow, true).map((tile) => {
     surroundingTilesSet.add(pairString(tile));
   });
-
-  // Create a set of tile that suround the inital mine locations
-  let superSurroundingTilesSet: Set<string> = new Set();
-  getValidTiles(props, clickedCol, clickedRow, false).map(([c, r]) =>
-    getValidTiles(props, c, r, false).map((tile) => {
-      superSurroundingTilesSet.add(pairString(tile));
-    })
-  );
 
   // Get list of fully avalable and inner free spaces: To be used if needed
   let prefFreeSpaces: [number, number][] = [];
@@ -234,7 +211,7 @@ function firstClickRelocate(
   );
 
   if (minesToRelocate.length > prefFreeSpaces.length + secondaryFree.length) {
-    alert("Sorry there are too many mines");
+    alert("There are too many mines");
   }
 
   // Relocate mines and update surounding tiles
@@ -259,16 +236,21 @@ function firstClickRelocate(
       .filter(([c, r]) => mM[c][r].mineValue > -1) // Filter by non-mine tiles
       .map(([c, r]) => (mM[c][r].mineValue += 1)); // Add 1 to each surouning non-mine tile
   }
+  console.log("Preformed first click shuffle");
 }
 
 const Minesweepergamescene = (props: Props) => {
+  const gameEnabled = useRef(true);
   const clickCount = useRef(0);
+  const tilesCleared = useRef(0);
   const [rerender, setRerender] = useState(false);
-  const [initialized, setInitialized] = useState(false);
+
   const mineMatrix = useRef<
     { mineValue: number; mineState: typeof MineState.Default }[][]
   >([]);
 
+  // Handle Setting
+  const [initialized, setInitialized] = useState(false);
   useEffect(() => {
     if (!initialized) {
       mineMatrix.current = createMineGame(props);
@@ -280,11 +262,71 @@ const Minesweepergamescene = (props: Props) => {
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
     clickCoords: { row: number; col: number }
   ) => {
-    // Handel Left click:
-    console.log("Click Count", clickCount.current);
+    // Game enabled check:
+    if (!gameEnabled.current) {
+      return;
+    }
 
+    // Handle Control Left click:
     if (
-      event.button == 0 &&
+      event.button === 0 &&
+      event.ctrlKey &&
+      mineMatrix.current[clickCoords.col][clickCoords.row].mineState ===
+        MineState.Revealed &&
+      mineMatrix.current[clickCoords.col][clickCoords.row].mineValue > 0 &&
+      clickCount.current !== 0
+    ) {
+      let mineLocations = getValidTiles(
+        props,
+        clickCoords.col,
+        clickCoords.row,
+        false
+      ).filter(([c, r]) => mineMatrix.current[c][r].mineValue === -1);
+
+      let flaggedLocations = getValidTiles(
+        props,
+        clickCoords.col,
+        clickCoords.row,
+        false
+      ).filter(
+        ([c, r]) => mineMatrix.current[c][r].mineState === MineState.Flagged
+      );
+
+      // Make sure number of flags equals number of bombs
+      if (mineLocations.length !== flaggedLocations.length) {
+        return;
+      }
+
+      mineLocations.map(([c, r]) => {
+        if (mineMatrix.current[c][r].mineState !== MineState.Flagged) {
+          // End the game
+          gameEnabled.current = false;
+          setAllBombs(mineMatrix.current);
+
+          return;
+        }
+
+        mineLocations.map(([c, r]) => {
+          if (mineMatrix.current[c][r].mineValue === 0) {
+            tilesCleared.current += revealClearSpace(
+              props,
+              mineMatrix.current,
+              c,
+              r
+            );
+          }
+        });
+
+        getValidTiles(props, clickCoords.col, clickCoords.row, false)
+          .filter(([c, r]) => mineMatrix.current[c][r].mineValue !== -1)
+          .map(
+            ([c, r]) =>
+              (mineMatrix.current[c][r].mineState = MineState.Revealed)
+          );
+      });
+    } else if (
+      // Handle Left click:
+      event.button === 0 &&
       mineMatrix.current[clickCoords.col][clickCoords.row].mineState ===
         MineState.Hidden
     ) {
@@ -292,7 +334,7 @@ const Minesweepergamescene = (props: Props) => {
         clickCount.current === 0 &&
         mineMatrix.current[clickCoords.col][clickCoords.row].mineValue !== 0
       ) {
-        console.log("First clock not free");
+        // First Click Rules
         firstClickRelocate(
           props,
           mineMatrix.current,
@@ -304,13 +346,12 @@ const Minesweepergamescene = (props: Props) => {
         mineMatrix.current[clickCoords.col][clickCoords.row].mineValue === -1
       ) {
         // Clicked a Bomb: show all bombs and end game
-        console.log("Clocked Bomb");
-        revealAllBombs(mineMatrix.current);
+        gameEnabled.current = false;
+        setAllBombs(mineMatrix.current);
       } else if (
         mineMatrix.current[clickCoords.col][clickCoords.row].mineValue === 0
       ) {
-        // Clicked a free tile
-        revealClearSpace(
+        tilesCleared.current += revealClearSpace(
           props,
           mineMatrix.current,
           clickCoords.col,
@@ -322,10 +363,11 @@ const Minesweepergamescene = (props: Props) => {
         // Clicked a number: reveal the number
         mineMatrix.current[clickCoords.col][clickCoords.row].mineState =
           MineState.Revealed;
+        tilesCleared.current += 1;
       }
     }
 
-    // Handel Right Click
+    // Handle Right Click
     if (event.button == 2) {
       if (
         mineMatrix.current[clickCoords.col][clickCoords.row].mineState ===
@@ -342,27 +384,39 @@ const Minesweepergamescene = (props: Props) => {
       }
     }
 
-    // TODO Handel Middle Click
+    // TODO Handle Middle Click
+    // if (event.button == 1) {
+    //   event.preventDefault();
+    // }
 
-    // Rerender the scene to reflect changes
+    // Check win conditon
+    if (props.cols * props.rowLength === props.mines + tilesCleared.current) {
+      gameEnabled.current = false;
+      mineMatrix.current.map((cols) => {
+        cols.map((tile) => {
+          if (tile.mineValue === -1) {
+            tile.mineState = MineState.Flagged;
+          }
+        });
+      });
+      console.log("You Win");
+    }
+
     clickCount.current += 1;
-    setRerender(!rerender);
+    setRerender(!rerender); // Rerender the scene to reflect changes
   };
 
   return (
-    <div className="bg-transparent p-5 ">
+    <div className="pt-5 ">
       <div className="flex justify-center min-w-0">
         <div className="overflow-auto inline-block box-border">
-          <div className="bg-orange-500 p-3 inline-block">
-            <table className="bg-gray-100 border-collapse">
+          <div className="bg-gray-400 p-5 inline-block">
+            <table className="bg-gray-100 border-collapse leading-none">
               <tbody>
                 {mineMatrix.current.map((col, colIndex) => (
-                  <tr key={colIndex} className="border-none">
+                  <tr key={colIndex} className="p-0 ">
                     {col.map((data, rowIndex) => (
-                      <td
-                        key={`${colIndex} - ${rowIndex}`}
-                        className="border-none p-0"
-                      >
+                      <td key={`${colIndex} - ${rowIndex}`} className="p-0">
                         <MinesweeperTile
                           mineValue={data.mineValue}
                           mineState={data.mineState}

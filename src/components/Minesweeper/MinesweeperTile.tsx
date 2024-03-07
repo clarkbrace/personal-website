@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MineState } from "../Utils/MineState";
+import { MineState } from "../../Utils/MineState";
 
 interface Props {
   mineValue: number;
@@ -20,7 +20,7 @@ const textColors: TextColors = {
   5: { color: "Maroon" },
   6: { color: "MediumTurquoise" },
   7: { color: "Black" },
-  8: { color: "DarkGray " },
+  8: { color: "DarkGray" },
 };
 
 // function updateImage(ms: MineState) {}
@@ -32,26 +32,20 @@ const MinesweeperTile = (props: Props) => {
       onContextMenu={(event) => {
         event.preventDefault();
       }}
-      onWheel={(event) => {
-        event.preventDefault();
-      }}
-      className="w-10 h-10 border-2 p-0"
+      className="w-9 h-9 border-2 p-0 inline-block"
       style={{
         backgroundImage: props.mineState,
         backgroundSize: "cover",
       }}
-      onMouseUp={(event) => props.clickedFunc(event)}
+      onMouseUp={(event) => {
+        props.clickedFunc(event);
+      }}
     >
-      {/* // TODO ADD BACK IN props.tileData.mineState != MineState.Hidden && */}
-      {
+      {props.mineState === MineState.Revealed && (
         <div style={textColor}>
-          {props.mineValue == -1
-            ? "M"
-            : props.mineValue < 1
-            ? ""
-            : props.mineValue.toString()}
+          {props.mineValue < 1 ? "" : props.mineValue.toString()}
         </div>
-      }
+      )}
     </button>
   );
 };
