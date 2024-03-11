@@ -1,5 +1,6 @@
 "use client";
 
+import MainNavigation from "@/components/MainNavigation";
 import Minesweepergamescene from "@/components/Minesweeper/Minesweepergamescene";
 import { useState, useEffect, ChangeEvent, useRef } from "react";
 import React from "react";
@@ -50,6 +51,9 @@ const minesweeper = () => {
 
   return (
     <>
+      <MainNavigation>
+        <></>
+      </MainNavigation>
       <div className="flex flex-col bg-gray-50 p-3 rounded-bl-lg rounded-br-lg drop-shadow-2xl">
         <label>MineSweeper</label>
         <div>

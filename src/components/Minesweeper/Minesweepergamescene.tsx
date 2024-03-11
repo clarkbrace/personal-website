@@ -267,68 +267,9 @@ const Minesweepergamescene = (props: Props) => {
       return;
     }
 
-    // Handle Control Left click:
     if (
-      event.button === 0 &&
-      event.ctrlKey &&
-      mineMatrix.current[clickCoords.col][clickCoords.row].mineState ===
-        MineState.Revealed &&
-      mineMatrix.current[clickCoords.col][clickCoords.row].mineValue > 0 &&
-      clickCount.current !== 0
-    ) {
-      let mineLocations = getValidTiles(
-        props,
-        clickCoords.col,
-        clickCoords.row,
-        false
-      ).filter(([c, r]) => mineMatrix.current[c][r].mineValue === -1);
-
-      let flaggedLocations = getValidTiles(
-        props,
-        clickCoords.col,
-        clickCoords.row,
-        false
-      ).filter(
-        ([c, r]) => mineMatrix.current[c][r].mineState === MineState.Flagged
-      );
-
-      // Make sure number of flags equals number of bombs
-      if (mineLocations.length !== flaggedLocations.length) {
-        return;
-      }
-
-      mineLocations.map(([c, r]) => {
-        if (mineMatrix.current[c][r].mineState !== MineState.Flagged) {
-          // End the game
-          gameEnabled.current = false;
-          setAllBombs(mineMatrix.current);
-
-          return;
-        }
-
-        mineLocations.map(([c, r]) => {
-          if (mineMatrix.current[c][r].mineValue === 0) {
-            tilesCleared.current += revealClearSpace(
-              props,
-              mineMatrix.current,
-              c,
-              r
-            );
-          }
-        });
-
-        getValidTiles(props, clickCoords.col, clickCoords.row, false)
-          .filter(([c, r]) => mineMatrix.current[c][r].mineValue !== -1)
-          .map(
-            ([c, r]) =>
-              (mineMatrix.current[c][r].mineState = MineState.Revealed)
-          );
-      });
-    } else if (
       // Handle Left click:
-      event.button === 0 &&
-      mineMatrix.current[clickCoords.col][clickCoords.row].mineState ===
-        MineState.Hidden
+      event.button === 0
     ) {
       if (
         clickCount.current === 0 &&
@@ -341,7 +282,70 @@ const Minesweepergamescene = (props: Props) => {
           clickCoords.col,
           clickCoords.row
         );
+      } else if (
+        event.button === 0 &&
+        event.ctrlKey &&
+        mineMatrix.current[clickCoords.col][clickCoords.row].mineState ===
+          MineState.Revealed &&
+        mineMatrix.current[clickCoords.col][clickCoords.row].mineValue > 0 &&
+        clickCount.current !== 0
+      ) {
+        // Handle Control Left click:
+        let mineLocations = getValidTiles(
+          props,
+          clickCoords.col,
+          clickCoords.row,
+          false
+        ).filter(([c, r]) => mineMatrix.current[c][r].mineValue === -1);
+
+        let flaggedLocations = getValidTiles(
+          props,
+          clickCoords.col,
+          clickCoords.row,
+          false
+        ).filter(
+          ([c, r]) => mineMatrix.current[c][r].mineState === MineState.Flagged
+        );
+
+        // Make sure number of flags equals number of bombs
+        if (mineLocations.length !== flaggedLocations.length) {
+          return;
+        }
+
+        mineLocations.map(([c, r]) => {
+          if (mineMatrix.current[c][r].mineState !== MineState.Flagged) {
+            // End the game
+            gameEnabled.current = false;
+            setAllBombs(mineMatrix.current);
+
+            return;
+          }
+
+          mineLocations.map(([c, r]) => {
+            if (mineMatrix.current[c][r].mineValue === 0) {
+              tilesCleared.current += revealClearSpace(
+                props,
+                mineMatrix.current,
+                c,
+                r
+              );
+            }
+          });
+
+          getValidTiles(props, clickCoords.col, clickCoords.row, false)
+            .filter(
+              ([c, r]) =>
+                mineMatrix.current[c][r].mineValue !== -1 &&
+                mineMatrix.current[c][r].mineState === MineState.Hidden
+            )
+            .map(([c, r]) => {
+              mineMatrix.current[c][r].mineState = MineState.Revealed;
+              tilesCleared.current += 1;
+            });
+        });
       }
+      //
+
       if (
         mineMatrix.current[clickCoords.col][clickCoords.row].mineValue === -1
       ) {
@@ -384,11 +388,6 @@ const Minesweepergamescene = (props: Props) => {
       }
     }
 
-    // TODO Handle Middle Click
-    // if (event.button == 1) {
-    //   event.preventDefault();
-    // }
-
     // Check win conditon
     if (props.cols * props.rowLength === props.mines + tilesCleared.current) {
       gameEnabled.current = false;
@@ -401,7 +400,7 @@ const Minesweepergamescene = (props: Props) => {
       });
       console.log("You Win");
     }
-
+    console.log("Spaces Cleared:", tilesCleared.current);
     clickCount.current += 1;
     setRerender(!rerender); // Rerender the scene to reflect changes
   };
