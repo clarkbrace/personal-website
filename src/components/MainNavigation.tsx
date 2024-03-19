@@ -1,23 +1,23 @@
 import Link from "next/link";
 import React from "react";
+import SocialMediaButtons from "./SocialMedia";
+import HomePageDropDowns from "./HomePageDropDowns";
 
-interface Props {
-  children: React.ReactElement;
-}
-
-const MainNavigation = (props: Props) => {
+const MainNavigation = () => {
   return (
-    <>
-      <div className="flex flex-nowrap h-32 bg-gray-500 drop-shadow-2xl rounded-bl-lg rounded-br-lg p-10 border border-black">
-        <Link href={"/"} className="">
-          <img
-            src="/CBLogosvg.svg"
-            className="max-w-full border border-black"
-          ></img>
-        </Link>
-        <div className="w-full border border-black">{props.children}</div>
+    <div className="flex flex-nowrap h-42 bg-white drop-shadow-2xl rounded-b-lg p-10 border border-black">
+      <Link href={"/"} className="">
+        <img
+          src="/CBLogosvg.svg"
+          className="h-full border border-black flex-shrink-0"
+        ></img>
+      </Link>
+
+      <div className="h-full border border-black w-full max-w-3/4">
+        <HomePageDropDowns></HomePageDropDowns>
       </div>
-    </>
+      <SocialMediaButtons />
+    </div>
   );
 };
 

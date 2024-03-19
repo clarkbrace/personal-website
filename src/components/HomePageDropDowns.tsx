@@ -11,8 +11,10 @@ const HomePageDropDowns = () => {
     { label: "MineSweeper5", href: "/minesweeper" },
   ];
 
+  const aboutMe = [{ label: "Resume", href: "/resumel" }];
+
   return (
-    <div className="flex flex-nowrap justify-center">
+    <div className="flex flex-nowrap place-content-evenly">
       <DropDownMenu
         dropDownName="Projects"
         links={projectsDropDown}
@@ -21,10 +23,7 @@ const HomePageDropDowns = () => {
         dropDownName="Projects"
         links={projectsDropDown}
       ></DropDownMenu>
-            <DropDownMenu
-        dropDownName="Projects"
-        links={projectsDropDown}
-      ></DropDownMenu>
+      <DropDownMenu dropDownName="About Me" links={aboutMe}></DropDownMenu>
     </div>
   );
 };

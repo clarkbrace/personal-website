@@ -51,9 +51,8 @@ const minesweeper = () => {
 
   return (
     <>
-      <MainNavigation>
-        <></>
-      </MainNavigation>
+      <MainNavigation />
+
       <div className="flex flex-col bg-gray-50 p-3 rounded-bl-lg rounded-br-lg drop-shadow-2xl">
         <label>MineSweeper</label>
         <div>

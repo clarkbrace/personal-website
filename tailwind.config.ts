@@ -11,9 +11,16 @@ const config: Config = {
       backgroundImage: {
         'hero-pattern': "url('/img/hero-pattern.svg')",
         'footer-texture': "url('/img/footer-texture.png')",
-      }
-      
+      },
+      fontSize: {
+        dropDown: '1rem',
+        dropDownItem: '0.8rem'
+      },
+      animation: {
+        'spin-slow': 'spin 3s linear infinite',
+      },
     },
+    
   },
   plugins: [],
 };
