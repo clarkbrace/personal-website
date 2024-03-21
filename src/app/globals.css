@@ -21,7 +21,7 @@ html {
 }
 
 body {
-  background: linear-gradient(to bottom, blue,#6EF3E2)
+  background: rgb(255, 232, 204);
 }
 
 @layer utilities {

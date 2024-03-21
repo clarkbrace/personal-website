@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MineState } from "../../Utils/MineState";
+import { MineState } from "../../utils/MineState";
 
 interface Props {
   mineValue: number;

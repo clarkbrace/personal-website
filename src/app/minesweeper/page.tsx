@@ -1,9 +1,8 @@
 "use client";
-
+import React from "react";
 import MainNavigation from "@/components/MainNavigation";
 import Minesweepergamescene from "@/components/Minesweeper/Minesweepergamescene";
 import { useState, useEffect, ChangeEvent, useRef } from "react";
-import React from "react";
 
 const minesweeper = () => {
   const [rowLength, setrowLength] = useState(30);
@@ -54,7 +53,7 @@ const minesweeper = () => {
       <MainNavigation />
 
       <div className="flex flex-col bg-gray-50 p-3 rounded-bl-lg rounded-br-lg drop-shadow-2xl">
-        <label>MineSweeper</label>
+        <h1 className={`w-full text-center`}>MineSweeper</h1>
         <div>
           <label htmlFor="Rows">Rows:</label>
           <input

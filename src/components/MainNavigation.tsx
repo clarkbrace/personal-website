@@ -5,7 +5,7 @@ import HomePageDropDowns from "./HomePageDropDowns";
 
 const MainNavigation = () => {
   return (
-    <div className="flex flex-nowrap h-42 bg-white drop-shadow-2xl rounded-b-lg p-10 border border-black">
+    <div className="flex flex-nowrap bg-cyan-400 drop-shadow-md rounded-b-lg p-10 border border-black">
       <Link href={"/"} className="">
         <img
           src="/CBLogosvg.svg"
@@ -13,7 +13,7 @@ const MainNavigation = () => {
         ></img>
       </Link>
 
-      <div className="h-full border border-black w-full max-w-3/4">
+      <div className="h-full w-full max-w-3/4">
         <HomePageDropDowns></HomePageDropDowns>
       </div>
       <SocialMediaButtons />

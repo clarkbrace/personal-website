@@ -8,16 +8,16 @@ const SocialMediaButtons = () => {
         <img
           src="/linkedin.svg"
           alt="LinkedIn Link Button"
-          width="40"
-          height="40"
+          width="50"
+          height="50"
         ></img>
       </a>
       <a href="https://github.com/clarkbrace" target="_blank">
         <img
           src="/github.svg"
           alt="GitHub Link Button "
-          width="40"
-          height="40"
+          width="50"
+          height="50"
         />
       </a>
     </div>

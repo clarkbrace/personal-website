@@ -1,4 +1,5 @@
 import type { Config } from "tailwindcss";
+import { metalurdo } from "@/app/layout";
 
 const config: Config = {
   content: [
@@ -8,6 +9,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      fontFamily: {
+        metalurdo: ['var(--font-metalurdo)']
+      },
       backgroundImage: {
         'hero-pattern': "url('/img/hero-pattern.svg')",
         'footer-texture': "url('/img/footer-texture.png')",
@@ -19,8 +23,8 @@ const config: Config = {
       animation: {
         'spin-slow': 'spin 3s linear infinite',
       },
+      
     },
-    
   },
   plugins: [],
 };

@@ -3,15 +3,9 @@ import DropDownMenu from "./DropDownMenu";
 import Link from "react";
 
 const HomePageDropDowns = () => {
-  const projectsDropDown = [
-    { label: "MineSweeper", href: "/minesweeper" },
-    { label: "MineSweeper2", href: "/minesweeper" },
-    { label: "MineSweeper3", href: "/minesweeper" },
-    { label: "MineSweeper4", href: "/minesweeper" },
-    { label: "MineSweeper5", href: "/minesweeper" },
-  ];
+  const projectsDropDown = [{ label: "MineSweeper", href: "/minesweeper" }];
 
-  const aboutMe = [{ label: "Resume", href: "/resumel" }];
+  const aboutMe = [{ label: "Resume", href: "/resume" }];
 
   return (
     <div className="flex flex-nowrap place-content-evenly">

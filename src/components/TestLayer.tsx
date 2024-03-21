@@ -1,6 +1,6 @@
 import React from "react";
 import { useState } from "react";
-import { MineState } from "../Utils/MineState";
+import { MineState } from "../utils/MineState";
 
 const TestLayer = () => {
   const [currentState, setCurrentState] = useState(MineState.Hidden);
