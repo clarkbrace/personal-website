@@ -1,6 +1,6 @@
 import MainNavigation from "@/components/MainNavigation";
 import { metalurdo, andaluzia } from "./layout";
-import CodingSkils from "@/components/CodingSkils";
+import CodingSkils from "@/components/CodingSkills";
 import PersonalSummary from "@/components/PersonalSummary";
 
 export default function Home() {
@@ -8,7 +8,7 @@ export default function Home() {
     <main>
       <>
         <MainNavigation></MainNavigation>
-        <div className={`text-5xl p-3 w-full text-center`}>
+        <div className={`text-5xl p-5 w-full text-center`}>
           Welcome to <span className={`${andaluzia.className}`}>Clark's</span>{" "}
           Website
         </div>

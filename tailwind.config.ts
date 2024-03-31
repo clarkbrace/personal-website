@@ -5,25 +5,26 @@ const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}"
+    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
     extend: {
       fontFamily: {
-        metalurdo: ['var(--font-metalurdo)']
+        metalurdo: ["var(--font-metalurdo)"],
       },
       backgroundImage: {
-        'hero-pattern': "url('/img/hero-pattern.svg')",
-        'footer-texture': "url('/img/footer-texture.png')",
+        "website-icon": "url('/Personal Icon/WebsiteLogo.gif')",
+        "website-icon-ani": "url('/Personal Icon/WebsiteLogoAni.gif')",
+        linkedinLogo: "url('/linkedin.svg')",
+        githubLogo: "url('/github.svg')",
       },
       fontSize: {
-        dropDown: '1rem',
-        dropDownItem: '0.8rem'
+        dropDown: "1rem",
+        dropDownItem: "0.8rem",
       },
       animation: {
-        'spin-slow': 'spin 3s linear infinite',
+        "spin-slow": "spin 3s linear infinite",
       },
-      
     },
   },
   plugins: [],

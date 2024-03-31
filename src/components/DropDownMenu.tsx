@@ -2,11 +2,10 @@
 import React from "react";
 import { useState } from "react";
 import Link from "next/link";
-import { metalurdo } from "@/app/layout";
 
 interface Props {
   dropDownName: string;
-  links: { label: string; href: string }[];
+  links?: { label: string; href: string }[];
 }
 
 const DropDownMenu = (props: Props) => {
@@ -31,16 +30,17 @@ const DropDownMenu = (props: Props) => {
                 : "opacity-0 -translate-y-2"
             }`}
           >
-            {props.links.map((link, index) => (
-              <li
-                key={index}
-                className="bg-yellow-700 hover:drop-shadow hover:bg-yellow-800 text-base"
-              >
-                <div className="border p-1">
-                  <Link href={link.href}>{link.label}</Link>
-                </div>
-              </li>
-            ))}
+            {props.links &&
+              props.links.map((link, index) => (
+                <li
+                  key={index}
+                  className="bg-yellow-700 hover:drop-shadow hover:bg-yellow-800 text-base"
+                >
+                  <div className="border p-1">
+                    <Link href={link.href}>{link.label}</Link>
+                  </div>
+                </li>
+              ))}
           </ol>
         </div>
       </div>

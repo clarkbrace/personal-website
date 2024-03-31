@@ -32,7 +32,7 @@ const MinesweeperTile = (props: Props) => {
       onContextMenu={(event) => {
         event.preventDefault();
       }}
-      className="w-9 h-9 border-2 p-0 inline-block hover:border"
+      className="w-9 h-9 border-2 p-0 inline-block hover:scale-105"
       style={{
         backgroundImage: props.mineState,
         backgroundSize: "cover",
