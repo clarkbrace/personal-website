@@ -8,13 +8,13 @@ const cinemigos = () => {
       <MainNavigation />
       <div className={`flex justify-center font-lexandDeca`}>
         <div className="flex max-w-4xl ">
-          <div className="flex flex-col">
+          <div className="flex flex-col text-lg">
             <h1 className="w-full text-center text-6xl font-bold p-4">
               Cinemigos
             </h1>
-            <div className="flex items-stretch pt-5 ">
+            <div className="flex items-stretch pt-5">
               <div className="flex flex-nowrap">
-                <p className="w-3/4 pr-4 text-lg">
+                <p className="w-3/4 pr-4 ">
                   Cinemigos is a movie discovery social media platform I
                   co-created with Jack Bodine for our senior year capstone
                   project. Cinemigos presents users with endless movies to swipe
@@ -73,7 +73,7 @@ const cinemigos = () => {
                 alt=""
                 className="rounded-[30px] h-40"
               />
-              <p className="p-3 text-lg">
+              <p className="p-3">
                 The database also allows for users to connect and view each
                 other's movie preferences. Additionally, users can create groups
                 which allow many people to see the overlap in their movie
@@ -82,7 +82,7 @@ const cinemigos = () => {
               </p>
             </div>
             <div>
-              <p className="text-lg">
+              <p className="">
                 The full report on the process of creating Cinemigos can be
                 found
                 <Link href="/cinemigospaper" className="text-blue-500">
@@ -90,6 +90,26 @@ const cinemigos = () => {
                 </Link>
                 .
               </p>
+            </div>
+            <div className="flex flex-col justify-center w-full">
+              <p className="pt-10 justify-center w-full text-center">
+                Also feel free to download Cinemigos on the app store today!
+              </p>
+              <div className="flex justify-center">
+                <div>
+                  <a
+                    href="https://apps.apple.com/us/app/cinemigos/id1668502454"
+                    target="_blank"
+                    className="w-full p-3"
+                  >
+                    <img
+                      src="/icons/Download_on_the_App_Store_Badge.svg"
+                      alt=""
+                      className="w-64 hover:scale-105"
+                    />
+                  </a>
+                </div>
+              </div>
             </div>
           </div>
         </div>
