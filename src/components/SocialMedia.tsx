@@ -4,17 +4,17 @@ const SocialMediaButtons = () => {
   return (
     <div className="flex flex-col h-1/2">
       <a
-        href="www.linkedin.com/in/clark-brace"
+        href="https://www.linkedin.com/in/clark-brace"
         target="_blank"
-        className="aspect-square h-full"
+        className="aspect-square h-full p-0.5"
       >
         <div className="bg-linkedinLogo bg-contain aspect-square hover:scale-105"></div>
       </a>
 
       <a
-        href="https://github.com/clarkbrace"
+        href="https://www.github.com/clarkbrace"
         target="_blank"
-        className="aspect-square h-full"
+        className="aspect-square h-full p-0.5"
       >
         <div className="bg-githubLogo bg-contain aspect-square hover:scale-105"></div>
       </a>

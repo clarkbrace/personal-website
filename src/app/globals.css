@@ -29,3 +29,8 @@ body {
     text-wrap: balance;
   }
 }
+
+.forwardFont{
+  font-family: var(--font-forward);
+}
+

@@ -19,6 +19,22 @@ export const metalurdo = localFont({
   variable: "--font-metalurdo",
 });
 
+export const forward = localFont({
+  src: "../../public/fonts/Forward.ttf",
+  style: "normal",
+  variable: "--font-forward",
+});
+
+export const brokenConsole = localFont({
+  src: "../../public/fonts/broken-console.bold.ttf",
+  variable: "--font-broken-console",
+});
+
+export const lexendDeca = localFont({
+  src: "../../public/fonts/LexendDecaRegular.ttf",
+  variable: "--font-lexendDeca",
+});
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -33,8 +49,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className={inter.className}>{children}</body>
+    <html
+      lang="en"
+      className={`${metalurdo.variable} ${forward.variable} ${minesweeperfont.variable} ${brokenConsole.variable} ${lexendDeca.variable}`}
+    >
+      <body>{children}</body>
     </html>
   );
 }

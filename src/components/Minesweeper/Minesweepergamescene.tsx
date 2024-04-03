@@ -406,10 +406,10 @@ const Minesweepergamescene = (props: Props) => {
   };
 
   return (
-    <div className="pt-5 ">
+    <div className="">
       <div className="flex justify-center min-w-0">
         <div className="overflow-auto inline-block box-border">
-          <div className="bg-gray-400 p-5 inline-block">
+          <div className="bg-gray-400 p-6 inline-block rounded-lg">
             <table className="bg-gray-100 border-collapse leading-none">
               <tbody>
                 {mineMatrix.current.map((col, colIndex) => (

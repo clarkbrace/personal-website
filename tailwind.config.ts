@@ -1,5 +1,7 @@
 import type { Config } from "tailwindcss";
 import { metalurdo } from "@/app/layout";
+import { brokenConsole } from "@/app/layout";
+import minesweeper from "@/app/minesweeper/page";
 
 const config: Config = {
   content: [
@@ -10,13 +12,16 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        metalurdo: ["var(--font-metalurdo)"],
+        brokenConsole: ["var(--font-broken-console)"],
+        minesweeper: ["var(--font-minesweeper)"],
+        lexandDeca: ["var(--font-lexendDeca)"]
       },
       backgroundImage: {
         "website-icon": "url('/Personal Icon/WebsiteLogo.gif')",
         "website-icon-ani": "url('/Personal Icon/WebsiteLogoAni.gif')",
-        linkedinLogo: "url('/linkedin.svg')",
-        githubLogo: "url('/github.svg')",
+        linkedinLogo: "url('/Icons/Linkedin-Icon.svg')",
+        githubLogo: "url('/Icons/Github-Icon.svg')",
+        'main-nav-pattern' : "url('/Background.svg')",
       },
       fontSize: {
         dropDown: "1rem",

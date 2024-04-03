@@ -42,7 +42,8 @@ const MinesweeperTile = (props: Props) => {
       }}
     >
       {props.mineState === MineState.Revealed && (
-        <div style={textColor}>
+        <div style={textColor}
+        className="font-minesweeper">
           {props.mineValue < 1 ? "" : props.mineValue.toString()}
         </div>
       )}

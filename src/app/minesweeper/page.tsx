@@ -15,12 +15,16 @@ const minesweeper = () => {
   }
 
   function updateRowLength(event: ChangeEvent<HTMLInputElement>) {
-    setRowLength(Number(event.target.value));
+    setRowLength(
+      Number(event.target.value) < 99 ? Number(event.target.value) : 99
+    );
     toggleState();
   }
 
   function updateColCount(event: ChangeEvent<HTMLInputElement>) {
-    setColCount(Number(event.target.value));
+    setColCount(
+      Number(event.target.value) < 99 ? Number(event.target.value) : 99
+    );
     toggleState();
   }
 
@@ -35,15 +39,16 @@ const minesweeper = () => {
       let percent = newMax / mineCount;
       setMineCount(Math.round(newMax * percent));
     }
+
     setNewGame(true);
   }, [mineCount, colCount, rowLength, newGame]); // Specify colCount and rowLength as dependencies
 
   return (
     <>
       <MainNavigation />
-      <div className="flex flex-nowrap bg-gray-50 p-3 rounded-bl-lg rounded-br-lg drop-shadow-2xl">
-        <div className="flex flex-col place-items-center w-full">
-          <h1 className={`w-full text-center`}>Minesweeper</h1>
+      <div className="flex flex-nowrap  font-minesweeper justify-center w-full pt-5">
+        <div className="flex flex-col place-items-center w-96 bg-gray-400 rounded-t-lg">
+          <h1 className="w-full text-center pt-3">Minesweeper</h1>
 
           <table className="m-4">
             <tbody>
@@ -59,7 +64,7 @@ const minesweeper = () => {
                     max="99"
                     value={rowLength}
                     onChange={(e) => updateRowLength(e)}
-                    className="bg-gray-200 ml-3 w-10"
+                    className="bg-gray-200 ml-3 w-14"
                   ></input>
                 </td>
               </tr>
@@ -75,7 +80,7 @@ const minesweeper = () => {
                     max="99"
                     value={colCount}
                     onChange={(e) => updateColCount(e)}
-                    className="bg-gray-200 ml-3 w-10"
+                    className="bg-gray-200 ml-3 w-14"
                   ></input>
                 </td>
               </tr>
@@ -91,7 +96,7 @@ const minesweeper = () => {
                     max={rowLength * colCount - 1}
                     value={mineCount}
                     onChange={(e) => updateMineCount(e)}
-                    className="bg-gray-200 ml-3 w-14"
+                    className="bg-gray-200 ml-3 w-24"
                   ></input>
                 </td>
               </tr>

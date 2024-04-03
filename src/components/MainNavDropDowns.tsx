@@ -4,8 +4,8 @@ import Link from "react";
 
 const HomePageDropDowns = () => {
   const projectsDropDown = [
-    { label: "MineSweeper", href: "/minesweeper" },
-    { label: "Cinemigos", href: "/cinemigos" },
+    { label: "MineSweeper", href: "/minesweeper", font: "font-minesweeper" },
+    { label: "Cinemigos", href: "/cinemigos", font: "font-lexandDeca" },
   ];
   const aboutMe = [{ label: "Resume", href: "/resume" }];
   const blog = undefined;
