@@ -9,7 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "next/font": "^14.1.4",
+    "@next/font": "^14.1.4",
     "next": "14.1.0",
     "next.js": "^1.0.3",
     "node.js": "^0.0.1-security",

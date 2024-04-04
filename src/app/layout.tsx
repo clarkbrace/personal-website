@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import "./styles.css";
-import localFont from "next/font/local";
+import localFont from "@next/font/local";
 
 export const minesweeperfont = localFont({
   src: "../../public/fonts/mine-sweeper.otf",
