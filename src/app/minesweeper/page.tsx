@@ -4,7 +4,7 @@ import MainNavigation from "@/components/MainNavigation";
 import Minesweepergamescene from "@/components/Minesweeper/Minesweepergamescene";
 import { useState, useEffect, ChangeEvent, useRef } from "react";
 
-const minesweeper = () => {
+const Minesweeper = () => {
   const [rowLength, setRowLength] = useState(30);
   const [colCount, setColCount] = useState(20);
   const [mineCount, setMineCount] = useState(99);
@@ -126,4 +126,4 @@ const minesweeper = () => {
   );
 };
 
-export default minesweeper;
+export default Minesweeper;
