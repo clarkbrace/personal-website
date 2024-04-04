@@ -1,7 +1,5 @@
 import type { Config } from "tailwindcss";
-import { metalurdo } from "@/app/layout";
-import { brokenConsole } from "@/app/layout";
-import Minesweeper from "@/app/minesweeper/page";
+
 
 const config: Config = {
   content: [
@@ -12,7 +10,7 @@ const config: Config = {
   theme: {
     extend: {
       fontFamily: {
-        brokenConsole: ["var(--font-broken-console)"],
+        brokenConsole: ["var(--font-brokenConsole)"],
         minesweeper: ["var(--font-minesweeper)"],
         lexandDeca: ["var(--font-lexendDeca)"]
       },

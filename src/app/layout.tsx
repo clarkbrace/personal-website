@@ -26,8 +26,8 @@ export const forward = localFont({
 });
 
 export const brokenConsole = localFont({
-  src: "../../public/fonts/broken-console.bold.ttf",
-  variable: "--font-broken-console",
+  src: "../../public/fonts/brokenConsoleBold.ttf",
+  variable: "--font-brokenConsole",
 });
 
 export const lexendDeca = localFont({
