@@ -12,12 +12,12 @@ const PersonalSummary = () => {
           University of Puget Sound with a degree in Computer Science. I have
           always been interested in computers having grown up in a tech-forward
           family. Ever since a young child I loved playing video games and
-          tinkering around with computers.
+          tinkering around with technology.
         </p>
         <p>
           <br />I am now an aspiring software engineer and always excited to
           learn new skills and work on fun projects. I am using this website as
-          a mean to show off what I have been working on be it video games,
+          a means to show off what I have been working on be it video games,
           pixel art, or some other form of media.
         </p>
       </div>
