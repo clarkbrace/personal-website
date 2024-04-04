@@ -2,7 +2,7 @@
 import React from "react";
 import MinesweeperTile from "./MinesweeperTile";
 import { useState, useRef, useEffect } from "react";
-import { MineState } from "../../utils/MineState";
+import { MineState } from "@/utils/MineState";
 
 interface Props {
   cols: number;

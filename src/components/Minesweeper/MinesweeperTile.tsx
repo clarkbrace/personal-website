@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { MineState } from "../../utils/MineState";
+import { MineState } from "@/utils/MineState";
 
 interface Props {
   mineValue: number;
@@ -42,8 +42,7 @@ const MinesweeperTile = (props: Props) => {
       }}
     >
       {props.mineState === MineState.Revealed && (
-        <div style={textColor}
-        className="font-minesweeper">
+        <div style={textColor} className="font-minesweeper">
           {props.mineValue < 1 ? "" : props.mineValue.toString()}
         </div>
       )}
