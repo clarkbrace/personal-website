@@ -1,5 +1,4 @@
 import MainNavigation from "@/components/MainNavigation";
-import { metalurdo, andaluzia } from "./layout";
 import CodingSkils from "@/components/CodingSkills";
 import PersonalSummary from "@/components/PersonalSummary";
 
@@ -14,7 +13,7 @@ export default function Home() {
               <div
                 className={`text-5xl p-5 w-full text-center font-brokenConsole`}
               >
-                Welcome to Clark's Website
+                Welcome to Clark&apos;s Website
               </div>
             </div>
             <div className="flex justify-center">

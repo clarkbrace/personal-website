@@ -1,6 +1,7 @@
 import React from "react";
 import MainNavigation from "@/components/MainNavigation";
 import Link from "next/link";
+import Image from "next/image";
 
 const cinemigos = () => {
   return (
@@ -68,15 +69,17 @@ const cinemigos = () => {
               </div>
             </div>
             <div className="flex flex-nowrap w-full">
-              <img
+              <Image
+                width={160}
+                height={160} // To make sure next can render without explicit width
                 src="/cinemigos/cinemigosIcon.webp"
                 alt=""
-                className="rounded-[30px] h-40"
+                className="rounded-[30px] h-40 w-40"
               />
               <p className="p-3">
                 The database also allows for users to connect and view each
-                other's movie preferences. Additionally, users can create groups
-                which allow many people to see the overlap in their movie
+                other&apos;s movie preferences. Additionally, users can create
+                groups which allow many people to see the overlap in their movie
                 preferences. Cinemigos also fully supports user account recovery
                 with password changes as well as account deletion.
               </p>
@@ -102,7 +105,9 @@ const cinemigos = () => {
                     target="_blank"
                     className="w-full p-3"
                   >
-                    <img
+                    <Image
+                      width={1}
+                      height={1}
                       src="/icons/Download_on_the_App_Store_Badge.svg"
                       alt=""
                       className="w-64 hover:scale-105"
