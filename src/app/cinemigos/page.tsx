@@ -24,34 +24,34 @@ const cinemigos = () => {
                   <br />
                   Created primarily for the iOS App Store, Cinemigos was written
                   in Swift and uses SwiftUI for its user interface. Cinemigos
-                  uses
+                  uses{" "}
                   <a
                     href="https://www.themoviedb.org"
                     target="_blank"
                     className="text-blue-500"
                   >
-                    &nbsp;The Movie Database&nbsp;
-                  </a>
+                    The Movie Database
+                  </a>{" "}
                   as its primary data source but also draws additional
-                  information from the
+                  information from the{" "}
                   <a
                     href="https://www.justwatch.com/"
                     target="_blank"
                     className="text-blue-500"
                   >
-                    &nbsp;Just Watch API&nbsp;
-                  </a>
+                    Just Watch API
+                  </a>{" "}
                   to allow users to see where they can watch the movies they are
                   swiping through. Account creation and user data storage is
                   also supported with Cinemigos. After a user creates an
-                  account, their data is added to a
+                  account, their data is added to a{" "}
                   <a
                     href="https://firebase.google.com"
                     target="_blank"
                     className="text-blue-500"
                   >
-                    &nbsp;Firebase&nbsp;
-                  </a>
+                    Firebase
+                  </a>{" "}
                   database which allows data to sync between devices.
                 </p>
                 <video
@@ -86,7 +86,7 @@ const cinemigos = () => {
                 The full report on the process of creating Cinemigos can be
                 found
                 <Link href="/cinemigospaper" className="text-blue-500">
-                  &nbsp;Here
+                  Here
                 </Link>
                 .
               </p>

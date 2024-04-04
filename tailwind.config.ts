@@ -1,7 +1,7 @@
 import type { Config } from "tailwindcss";
 import { metalurdo } from "@/app/layout";
 import { brokenConsole } from "@/app/layout";
-import minesweeper from "@/app/minesweeper/page";
+import Minesweeper from "@/app/minesweeper/page";
 
 const config: Config = {
   content: [
