@@ -16,6 +16,7 @@ export function HandleLeftClick(
   tilesCleared: number,
   setTilesCleared: React.Dispatch<SetStateAction<number>>
 ) {
+  console.log("left");
   let clickedTile = mineMatrix[clickCoords.col][clickCoords.row];
 
   if (clickedTile.mineValue > 0) {
@@ -31,7 +32,6 @@ export function HandleLeftClick(
     setTilesCleared(tilesCleared + freed);
   } else if (clickedTile.mineValue === -1) {
     setAllBombs(mineMatrix);
-    setTilesCleared(tilesCleared + 1);
     setGameEnabled(false);
   }
 }

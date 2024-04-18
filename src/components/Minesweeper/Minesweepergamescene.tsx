@@ -96,7 +96,7 @@ const Minesweepergamescene = (props: Props) => {
       setGameWon(true);
       console.log("You Win!");
     }
-  }, [gameEnabled, firstLeftClick, tilesCleared, flagCount]);
+  }, [gameEnabled, firstLeftClick, tilesCleared, flagCount, gameWon]);
 
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -162,8 +162,8 @@ const Minesweepergamescene = (props: Props) => {
       <div className="flex justify-center min-w-0">
         <div className="overflow-auto inline-block box-border">
           <div
-            className={`bg-gray-400 p-6 inline-block rounded-lg ${
-              gameWon ? "bg-amber-500" : ""
+            className={` p-6 inline-block rounded-lg ${
+              !gameWon ? "bg-gray-400" : "bg-amber-500"
             }`}
           >
             <table className="bg-gray-100 border-collapse leading-none">
