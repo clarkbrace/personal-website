@@ -19,8 +19,8 @@ const textColors: TextColors = {
   4: { color: "DarkBlue" },
   5: { color: "Maroon" },
   6: { color: "MediumTurquoise" },
-  7: { color: "Black" },
-  8: { color: "DarkGray" },
+  7: { color: "Purple" },
+  8: { color: "Black" },
 };
 
 // function updateImage(ms: MineState) {}
@@ -38,7 +38,11 @@ const MinesweeperTile = (props: Props) => {
         backgroundSize: "cover",
       }}
       onMouseUp={(event) => {
+        event.preventDefault();
         props.clickedFunc(event);
+      }}
+      onMouseDown={(event) => {
+        event.preventDefault();
       }}
     >
       {props.mineState === MineState.Revealed && (

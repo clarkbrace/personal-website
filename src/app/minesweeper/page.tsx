@@ -29,12 +29,12 @@ const Minesweeper = () => {
   }
 
   function updateMineCount(event: ChangeEvent<HTMLInputElement>) {
-    setMineCount(Number(event.target.value));
+    setMineCount(Number(event.target.value) < colCount * rowLength - 1 ? Number(event.target.value) : colCount * rowLength - 1 );
     toggleState();
   }
 
   useEffect(() => {
-    if (mineCount > colCount * rowLength) {
+    if (mineCount >= colCount * rowLength) {
       let newMax = colCount * rowLength;
       let percent = newMax / mineCount;
       setMineCount(Math.round(newMax * percent));
@@ -46,9 +46,9 @@ const Minesweeper = () => {
   return (
     <>
       <MainNavigation />
-      <div className="flex flex-nowrap  font-minesweeper justify-center w-full pt-5">
-        <div className="flex flex-col place-items-center w-96 bg-gray-400 rounded-t-lg">
-          <h1 className="w-full text-center pt-3">Minesweeper</h1>
+      <div className="flex flex-nowrap  font-minesweeper justify-center w-full">
+        <div className="flex flex-col place-items-center w-96 bg-gray-400 rounded-lg m-3 py-4">
+          <h1 className="w-full text-center ">Minesweeper</h1>
 
           <table className="m-4">
             <tbody>
