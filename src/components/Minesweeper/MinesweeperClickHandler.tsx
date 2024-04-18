@@ -16,7 +16,6 @@ export function HandleLeftClick(
   tilesCleared: number,
   setTilesCleared: React.Dispatch<SetStateAction<number>>
 ) {
-  console.log("left");
   let clickedTile = mineMatrix[clickCoords.col][clickCoords.row];
 
   if (clickedTile.mineValue > 0) {
@@ -47,7 +46,6 @@ export function HandleRightClick(
   if (currentTile.mineState == MineState.Hidden) {
     currentTile.mineState = MineState.Flagged;
     setFlagCount(flagCount + 1);
-    //console.log("Changed State of flagged");
   } else if (currentTile.mineState == MineState.Flagged) {
     currentTile.mineState = MineState.Hidden;
     setFlagCount(flagCount + 1);

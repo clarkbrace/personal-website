@@ -87,7 +87,7 @@ const cinemigos = () => {
             <div>
               <p className="">
                 The full report on the process of creating Cinemigos can be
-                found
+                found{" "}
                 <Link href="/cinemigospaper" className="text-blue-500">
                   Here
                 </Link>
@@ -106,8 +106,8 @@ const cinemigos = () => {
                     className="w-full p-3"
                   >
                     <Image
-                      width={1}
-                      height={1}
+                      width={64}
+                      height={32}
                       src="/icons/Download_on_the_App_Store_Badge.svg"
                       alt=""
                       className="w-64 hover:scale-105"
