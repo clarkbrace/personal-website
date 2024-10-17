@@ -2,11 +2,11 @@ import React from "react";
 
 const PersonalSummary = () => {
   return (
-    <div className="flex flex-col w-1/2 p-10">
+    <div className="flex flex-col w-2/3 p-10">
       <h1 className="text-lg justify-center text-center p-1 font-brokenConsole">
         Personal Summary
       </h1>
-      <div className="text-lg bg-gray">
+      <div className="text-xl bg-gray">
         <p>
           My name is Clark and welcome to my website! I graduated from the
           University of Puget Sound with a degree in Computer Science. I have

@@ -2,14 +2,15 @@ import React from "react";
 import MainNavigation from "@/components/MainNavigation";
 import Link from "next/link";
 import Image from "next/image";
+import DesktopDefaultPageFormat from "@/components/Templates/DesktopDefaultPageFormat";
 
 const cinemigos = () => {
   return (
     <>
       <MainNavigation />
-      <div className={`flex justify-center font-lexandDeca`}>
-        <div className="flex max-w-4xl ">
-          <div className="flex flex-col text-lg">
+      <DesktopDefaultPageFormat>
+        <div className={`flex justify-center font-lexandDeca text-[1.4rem]`}>
+          <div className="flex flex-col ">
             <h1 className="w-full text-center text-6xl font-bold p-4">
               Cinemigos
             </h1>
@@ -57,7 +58,7 @@ const cinemigos = () => {
                 </p>
                 <video
                   loop
-                  className="border-black rounded-xl border-2 h-96"
+                  className="border-black rounded-xl border-2 h-[23rem]"
                   autoPlay
                   muted
                 >
@@ -68,7 +69,7 @@ const cinemigos = () => {
                 </video>
               </div>
             </div>
-            <div className="flex flex-nowrap w-full">
+            <div className="flex flex-nowrap w-full pt-10">
               <Image
                 width={160}
                 height={160} // To make sure next can render without explicit width
@@ -88,7 +89,7 @@ const cinemigos = () => {
               <p className="">
                 The full report on the process of creating Cinemigos can be
                 found{" "}
-                <Link href="/cinemigospaper" className="text-blue-500">
+                <Link href="/cinemigos/paper" className="text-blue-500">
                   Here
                 </Link>
                 .
@@ -108,7 +109,7 @@ const cinemigos = () => {
                     <Image
                       width={64}
                       height={32}
-                      src="/icons/Download_on_the_App_Store_Badge.svg"
+                      src="/icons/Download_on_the_App_Store_Badge_US-UK_RGB_blk_092917.svg"
                       alt=""
                       className="w-64 hover:scale-105"
                     />
@@ -118,7 +119,7 @@ const cinemigos = () => {
             </div>
           </div>
         </div>
-      </div>
+      </DesktopDefaultPageFormat>
     </>
   );
 };
