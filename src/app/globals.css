@@ -21,7 +21,8 @@ html {
 }
 
 body {
-  background: rgb(255, 232, 204);
+  /* background: rgb(255, 232, 204); */
+  background: #001e55;
 }
 
 @layer utilities {
@@ -30,7 +31,6 @@ body {
   }
 }
 
-.forwardFont{
+.forwardFont {
   font-family: var(--font-forward);
 }
-

@@ -3,6 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import "./styles.css";
 import localFont from "next/font/local";
+import Header from "@/components/navigation/Header";
 
 const minesweeperfont = localFont({
   src: "../../public/fonts/mine-sweeper.otf",
@@ -35,12 +36,17 @@ const lexendDeca = localFont({
   variable: "--font-lexendDeca",
 });
 
+const overpassMono = localFont({
+  src: "../../public/fonts/OverpassMono-VariableFont_wght.ttf",
+  variable: "--font-overpassMono",
+});
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
   title: "Clark's Website",
   description:
-    "Clark Brace's personal website. Showcasing projects, art, and anything else I want to share",
+    "Clark Brace's personal website. Showcasing projects and anything else I want to share",
 };
 
 export default function RootLayout({
@@ -51,9 +57,12 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${minesweeperfont.variable} ${brokenConsole.variable} ${lexendDeca.variable}`}
+      className={`${minesweeperfont.variable} ${brokenConsole.variable} ${lexendDeca.variable} ${overpassMono.variable}`}
     >
-      <body>{children}</body>
+      <body>
+        <Header />
+        {children}
+      </body>
     </html>
   );
 }

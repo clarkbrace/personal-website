@@ -3,6 +3,7 @@ import React from "react";
 import MainNavigation from "@/components/MainNavigation";
 import Minesweepergamescene from "@/components/Minesweeper/Minesweepergamescene";
 import { useState, useEffect, ChangeEvent, useRef } from "react";
+import DesktopDefaultPageFormat from "@/components/Templates/DesktopDefaultPageFormat";
 
 const Minesweeper = () => {
   const [rowLength, setRowLength] = useState(30);
@@ -29,7 +30,11 @@ const Minesweeper = () => {
   }
 
   function updateMineCount(event: ChangeEvent<HTMLInputElement>) {
-    setMineCount(Number(event.target.value) < colCount * rowLength - 1 ? Number(event.target.value) : colCount * rowLength - 1 );
+    setMineCount(
+      Number(event.target.value) < colCount * rowLength - 1
+        ? Number(event.target.value)
+        : colCount * rowLength - 1
+    );
     toggleState();
   }
 
@@ -44,13 +49,12 @@ const Minesweeper = () => {
   }, [mineCount, colCount, rowLength, newGame]); // Specify colCount and rowLength as dependencies
 
   return (
-    <>
-      <MainNavigation />
-      <div className="flex flex-nowrap  font-minesweeper justify-center w-full">
-        <div className="flex flex-col place-items-center w-96 bg-gray-400 rounded-lg m-3 py-4">
+    <DesktopDefaultPageFormat>
+      <div className="flex flex-nowrap font-minesweeper justify-center w-full">
+        <div className="flex flex-col place-items-center w-96 bg-gray-400 rounded-lg m-3 py-4 text-black">
           <h1 className="w-full text-center ">Minesweeper</h1>
 
-          <table className="m-4">
+          <table className="m-4 ">
             <tbody>
               <tr>
                 <td>
@@ -122,7 +126,7 @@ const Minesweeper = () => {
           />
         )}
       </div>
-    </>
+    </DesktopDefaultPageFormat>
   );
 };
 

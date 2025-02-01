@@ -3,16 +3,8 @@ import React from "react";
 import MinesweeperTile from "./MinesweeperTile";
 import { useState, useRef, useEffect } from "react";
 import { MineState } from "@/utils/MineState";
-import {
-  getValidTiles,
-  setAllFlags,
-  firstClickRelocate,
-} from "./MinesweeperLogic";
-import {
-  HandleLeftClick,
-  HandleMiddleClick,
-  HandleRightClick,
-} from "./MinesweeperClickHandler";
+import { getValidTiles, setAllFlags, firstClickRelocate } from "./MinesweeperLogic";
+import { HandleLeftClick, HandleMiddleClick, HandleRightClick } from "./MinesweeperClickHandler";
 
 export interface Props {
   cols: number;
@@ -59,12 +51,7 @@ function createMineGame(props: Props) {
       // Make sure you don't calculate for a mine
       if (tileValue.mineValue !== -1) {
         // Get safe tiles, filter by miens, get count
-        tileValue.mineValue = getValidTiles(
-          props,
-          colIndex,
-          rowIndex,
-          false
-        ).filter(
+        tileValue.mineValue = getValidTiles(props, colIndex, rowIndex, false).filter(
           ([col, rIndex]) => mineMatrix[col][rIndex].mineValue === -1
         ).length;
       }
@@ -96,7 +83,16 @@ const Minesweepergamescene = (props: Props) => {
       setGameWon(true);
       console.log("You Win!");
     }
-  }, [gameEnabled, firstLeftClick, tilesCleared, flagCount, gameWon]);
+  }, [
+    gameEnabled,
+    firstLeftClick,
+    tilesCleared,
+    flagCount,
+    gameWon,
+    props.cols,
+    props.rowLength,
+    props.mines,
+  ]);
 
   const handleClick = (
     event: React.MouseEvent<HTMLButtonElement, MouseEvent>,
@@ -111,17 +107,11 @@ const Minesweepergamescene = (props: Props) => {
     // Handle Left click:
     if (
       event.button === 0 &&
-      mineMatrix.current[clickCoords.col][clickCoords.row].mineState ==
-        MineState.Hidden
+      mineMatrix.current[clickCoords.col][clickCoords.row].mineState == MineState.Hidden
     ) {
       if (firstLeftClick) {
         setFirstLeftClick(false);
-        firstClickRelocate(
-          props,
-          mineMatrix.current,
-          clickCoords.col,
-          clickCoords.row
-        );
+        firstClickRelocate(props, mineMatrix.current, clickCoords.col, clickCoords.row);
       }
 
       HandleLeftClick(
@@ -136,12 +126,7 @@ const Minesweepergamescene = (props: Props) => {
 
     // Handle Right Click
     if (event.button === 2) {
-      HandleRightClick(
-        mineMatrix.current,
-        clickCoords,
-        flagCount,
-        setFlagCount
-      );
+      HandleRightClick(mineMatrix.current, clickCoords, flagCount, setFlagCount);
     }
 
     // Handle Middle Click
@@ -162,9 +147,7 @@ const Minesweepergamescene = (props: Props) => {
       <div className="flex justify-center min-w-0">
         <div className="overflow-auto inline-block box-border">
           <div
-            className={` p-6 inline-block rounded-lg ${
-              !gameWon ? "bg-gray-400" : "bg-amber-500"
-            }`}
+            className={` p-6 inline-block rounded-lg ${!gameWon ? "bg-gray-400" : "bg-amber-500"}`}
           >
             <table className="bg-gray-100 border-collapse leading-none">
               <tbody>
@@ -179,12 +162,7 @@ const Minesweepergamescene = (props: Props) => {
                             col: colIndex,
                             row: rowIndex,
                           }}
-                          clickedFunc={(
-                            event: React.MouseEvent<
-                              HTMLButtonElement,
-                              MouseEvent
-                            >
-                          ) =>
+                          clickedFunc={(event: React.MouseEvent<HTMLButtonElement, MouseEvent>) =>
                             handleClick(event, {
                               row: rowIndex,
                               col: colIndex,

@@ -23,7 +23,7 @@ const DropDownMenu = (props: Props) => {
         </h1>
         <div className="mt-2 ">
           <ol
-            className={`absolute left-1/2 transform -translate-x-1/2 top-full border-gray-700 border-4 text-dropDownItem transition-all duration-200  ${
+            className={`absolute left-1/2  -translate-x-1/2 top-full border-gray-700 border-4 text-dropDownItem transition-all  ${
               showDropDown && props.links
                 ? "opacity-100 translate-y-0"
                 : "opacity-0 -translate-y-2"

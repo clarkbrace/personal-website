@@ -8,7 +8,6 @@ interface Props {
 const PaperPage = (props: Props) => {
   return (
     <>
-      <MainNavigation />
       <embed
         className="border border-black rounded flex h-screen"
         width="100%"

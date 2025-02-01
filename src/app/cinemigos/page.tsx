@@ -7,13 +7,10 @@ import DesktopDefaultPageFormat from "@/components/Templates/DesktopDefaultPageF
 const cinemigos = () => {
   return (
     <>
-      <MainNavigation />
       <DesktopDefaultPageFormat>
         <div className={`flex justify-center font-lexandDeca text-[1.4rem]`}>
           <div className="flex flex-col ">
-            <h1 className="w-full text-center text-6xl font-bold p-4">
-              Cinemigos
-            </h1>
+            <h1 className="w-full text-center text-6xl font-bold">Cinemigos</h1>
             <div className="flex items-stretch pt-5">
               <div className="flex flex-nowrap">
                 <p className="w-3/4 pr-4 ">

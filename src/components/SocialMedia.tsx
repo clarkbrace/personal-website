@@ -2,7 +2,7 @@ import React from "react";
 
 const SocialMediaButtons = () => {
   return (
-    <div className="flex flex-col h-1/2">
+    <div className="flex flex-col max-h-20 flex-shrink">
       <a
         href="https://www.linkedin.com/in/clark-brace"
         target="_blank"
