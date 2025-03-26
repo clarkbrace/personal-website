@@ -10,6 +10,7 @@ function Blog() {
       <div className="flex justify-center">
         {blogposts.map((post) => (
           <PostPreview
+            key={post.slug}
             title={post.title}
             slug={post.slug}
             coverImage={post.coverImage}
