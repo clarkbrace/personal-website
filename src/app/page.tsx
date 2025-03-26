@@ -1,10 +1,6 @@
-import MainNavigation from "@/components/MainNavigation";
-import CodingSkils from "@/components/CodingSkills";
-import PersonalSummary from "@/components/PersonalSummary";
 import DesktopDefaultPageFormat from "@/components/Templates/DesktopDefaultPageFormat";
 import Image from "next/image";
 import ExplanationCard from "@/components/Web Developer/ExplanationCard";
-import Posts from "@/components/Posts";
 
 export default function Home() {
   return (

@@ -4,7 +4,7 @@ import DropDown from "./DropDown";
 export default function NavBar() {
   return (
     <div className="flex place-content-between">
-      <DropDown title={"Blog"} />
+      <DropDown title={"Blog"} dropDownLink="/blog" />
       <DropDown title={"Projects"} dropDownItems={projects} />
       <DropDown title={"About Me"} dropDownItems={aboutMe} />
     </div>

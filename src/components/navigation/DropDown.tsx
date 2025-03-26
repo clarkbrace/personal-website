@@ -2,10 +2,12 @@
 import { useState } from "react";
 import DropDownItem from "./DropDownItem";
 import { DropDownMenuItem } from "../../../types";
+import Link from "next/link";
 
 interface Props {
   title: string;
   dropDownItems?: DropDownMenuItem[];
+  dropDownLink?: string;
 }
 
 export default function DropDown(props: Props) {
@@ -17,9 +19,11 @@ export default function DropDown(props: Props) {
       onMouseEnter={() => setShowDropDown(true)}
       onMouseLeave={() => setShowDropDown(false)}
     >
-      <h1 className="text-3xl px-2 pt-0.5 rounded-lg bg-gray-100 text-BodyBlue text-center">
-        {props.title}
-      </h1>
+      <Link href={ props.dropDownLink ? props.dropDownLink : "" }>
+        <h1 className="text-3xl px-2 pt-0.5 rounded-lg bg-gray-100 text-BodyBlue text-center">
+          {props.title}
+        </h1>
+      </Link>
 
       {props.dropDownItems && props.dropDownItems.length > 0 && (
         <div
@@ -46,3 +50,5 @@ export default function DropDown(props: Props) {
     </div>
   );
 }
+
+// const DropDown
