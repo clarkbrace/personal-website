@@ -12,7 +12,7 @@ const config: Config = {
         brokenConsole: ["var(--font-brokenConsole)"],
         minesweeper: ["var(--font-minesweeper)"],
         lexandDeca: ["var(--font-lexendDeca)"],
-        overpassMono: ["var(--font-overpassMono)"]
+        overpassMono: ["var(--font-overpassMono)"],
       },
       backgroundImage: {
         "website-icon": "url('/Personal Icon/WebsiteLogo.gif')",
@@ -20,6 +20,7 @@ const config: Config = {
         linkedinLogo: "url('/Icons/Linkedin-Icon.svg')",
         githubLogo: "url('/Icons/Github-Icon.svg')",
         "main-nav-pattern": "url('/Background.svg')",
+        hamburgerSymbol: "url('/Icons/HamburgerSymbol.svg')",
       },
       fontSize: {
         dropDown: "1rem",
@@ -29,15 +30,13 @@ const config: Config = {
         "spin-slow": "spin 3s linear infinite",
       },
       colors: {
-        "WebGradientBlue": "#0042BC",
-        "WebGradientGreen": "#66E343",
-        "BodyBlue" : "#001337",
-        "BodyLightBlue" : "#001E55",
+        WebGradientBlue: "#0042BC",
+        WebGradientGreen: "#66E343",
+        BodyBlue: "#001337",
+        BodyLightBlue: "#001E55",
       },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require("@tailwindcss/typography")],
 };
 export default config;

@@ -1,9 +1,7 @@
-import DropDown from "./DropDown";
-import { DropDownMenuItem } from "../../../types";
-import DropDownItem from "./DropDownItem";
 import Link from "next/link";
-import NavBar from "./NavBar";
+import NavBar from "./NavigationDropdown/NavBar";
 import SocialMediaButtons from "../SocialMedia";
+import { WebsiteMainNavigationData } from "@/app/data/SiteStructure";
 
 export default function Header() {
   return (
@@ -19,10 +17,9 @@ export default function Header() {
         </div>
         <div className="flex flex-col flex-grow">
           <h1 className="text-white drop-shadow-md text-center font-overpassMono text-8xl pb-10">
-            <span className="text-BodyBlue">Clark</span>{" "}
-            <span className="text-white">Brace</span>
+            <span className="text-BodyBlue">Clark</span> <span className="text-white">Brace</span>
           </h1>
-          <NavBar />
+          <NavBar MainNavigationData={WebsiteMainNavigationData} />
         </div>
         <div className="flex w-2/12 justify-end">
           <SocialMediaButtons />

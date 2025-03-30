@@ -4,6 +4,8 @@ import "./globals.css";
 import "./styles.css";
 import localFont from "next/font/local";
 import Header from "@/components/navigation/Header";
+import { useState } from "react";
+import MobileHeader from "@/components/navigation/MobileHeader";
 
 const minesweeperfont = localFont({
   src: "../../public/fonts/mine-sweeper.otf",
@@ -60,7 +62,14 @@ export default function RootLayout({
       className={`${minesweeperfont.variable} ${brokenConsole.variable} ${lexendDeca.variable} ${overpassMono.variable}`}
     >
       <body>
-        <Header />
+        <div>
+          <div className="lg:hidden">
+            <MobileHeader />
+          </div>
+          <div className="hidden lg:block">
+            <Header />
+          </div>
+        </div>
         {children}
       </body>
     </html>
