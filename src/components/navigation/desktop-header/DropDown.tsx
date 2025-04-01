@@ -3,7 +3,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { AnimatePresence, motion } from "motion/react";
 import { easeInOut } from "motion";
-import { DropDown, PageLink } from "./DropdownStrcture";
+import { DropDown, PageLink } from "../DropdownStructure";
 
 interface Props {
   navigationElements: (DropDown | PageLink)[];
@@ -70,7 +70,7 @@ function DropDownCard({ selectorElement }: DropDownCardProps) {
     <div
       className={`${selectorElement.font} bg-white p-2 border hover:bg-slate-400 text-nowrap ${selectorElement.font}`}
     >
-      {selectorElement.label }
+      {selectorElement.label}
     </div>
   );
 }

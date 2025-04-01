@@ -13,14 +13,9 @@ export enum TextPosision {
   Left,
 }
 
-const ExplanationCard = ({
-  title,
-  content,
-  posision,
-  className = "",
-}: Props) => {
+const ExplanationCard = ({ title, content, posision, className = "" }: Props) => {
   return (
-    <div className={`${className} flex flex-col font-overpassMono`}>
+    <div className={`${className} flex flex-col font-overpassMono pr-4`}>
       <h1
         className={`text-2xl ${
           posision === TextPosision.Center
@@ -34,7 +29,7 @@ const ExplanationCard = ({
       >
         {title}
       </h1>
-      <div className="flex-grow h-1 bg-white my-1"></div>
+      <hr className="my-1"></hr>
       <p className="text-lg flex-grow text-pretty mx-1">{content}</p>
     </div>
   );

@@ -1,9 +1,9 @@
 import Link from "next/link";
-import NavBar from "./NavigationDropdown/NavBar";
-import SocialMediaButtons from "../SocialMedia";
+import NavBar from "./NavBar";
+import SocialMediaButtons from "../../SocialMedia";
 import { WebsiteMainNavigationData } from "@/app/data/SiteStructure";
 
-export default function Header() {
+export default function DesktopHeader() {
   return (
     <nav
       className="bg-gradient-to-br from-WebGradientBlue to-WebGradientGreen 

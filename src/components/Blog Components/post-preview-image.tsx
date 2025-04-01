@@ -7,9 +7,9 @@ interface Props {
 
 function PostPreviewImage({ coverImage }: Props) {
   return (
-    <div className={"rounded-2xl  overflow-hidden mr-10"}>
+    <div className={"rounded-2xl  mr-10"}>
       <Image
-        className={""}
+        className={"rounded-2xl"}
         src={coverImage}
         alt={"Blog post cover image"}
         width={150}

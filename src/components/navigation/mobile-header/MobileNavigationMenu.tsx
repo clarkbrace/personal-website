@@ -1,20 +1,21 @@
 "use client";
 import Link from "next/link";
-import {
-  DropDown,
-  MainNavigationData,
-  PageLink,
-} from "./NavigationDropdown/DropdownStrcture";
+import { DropDown, MainNavigationData, PageLink } from "../DropdownStructure";
 import { useState } from "react";
 import { div } from "motion/react-client";
 
 interface MobileMenuProps {
   NavigationData: MainNavigationData;
+  setOpenNavMenu: (value: boolean) => void;
 }
 
-export default function MobileMenu({ NavigationData }: MobileMenuProps) {
+export default function MobileMenu({ NavigationData, setOpenNavMenu }: MobileMenuProps) {
   return (
-    <div className="flex w-full justify-center border-2 flex-col items-center">
+    <div className="flex w-full justify-center flex-col items-center">
+      <div
+        className="absolute right-4 top-4 bg-hamburgerSymbol bg-contain aspect-square hover:scale-105 h-16 bg-no-repeat"
+        onClick={() => setOpenNavMenu(false)}
+      ></div>
       {NavigationData.mainNavItems.map((navigationItem) => {
         switch (navigationItem.type) {
           case "pagelink":
@@ -47,11 +48,8 @@ interface NavigationCardProps {
   card_depth: number;
 }
 
-function MobileNavigationCard({
-  dropDownItem: dropDownItem,
-  card_depth,
-}: NavigationCardProps) {
-  const baseTextSize = 18; // In px
+function MobileNavigationCard({ dropDownItem: dropDownItem, card_depth }: NavigationCardProps) {
+  const baseTextSize = 30; // In px
   const minTextSize = 6;
   const fontSize = Math.max(minTextSize, baseTextSize - card_depth * 3);
 
@@ -67,7 +65,9 @@ function MobileNavigationCard({
 
   return (
     <div
-      className={`text-nowrap font-${dropDownItem.font}`}
+      className={`text-nowrap font-${dropDownItem.font} ${
+        dropDownItem.type === "pagelink" ? "underline" : ""
+      }`}
       style={{ fontSize: `${fontSize}px` }}
     >
       {dropDownItem.label + extraTextContent}
@@ -83,7 +83,7 @@ interface DropDownProps {
 }
 
 function MobileDropDown({ dropdown, card_depth }: DropDownProps) {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <div>
       <div onClick={() => setOpen(!open)}>
@@ -95,19 +95,9 @@ function MobileDropDown({ dropdown, card_depth }: DropDownProps) {
           {dropdown.dropDownItems.map((dropdownItem) => {
             switch (dropdownItem.type) {
               case "pagelink":
-                return (
-                  <MobilePageLink
-                    pageLink={dropdownItem}
-                    card_depth={card_depth + 1}
-                  />
-                );
+                return <MobilePageLink pageLink={dropdownItem} card_depth={card_depth + 1} />;
               case "dropdown":
-                return (
-                  <MobileDropDown
-                    dropdown={dropdownItem}
-                    card_depth={card_depth + 1}
-                  />
-                );
+                return <MobileDropDown dropdown={dropdownItem} card_depth={card_depth + 1} />;
             }
           })}
         </div>

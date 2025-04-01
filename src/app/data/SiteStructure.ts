@@ -1,8 +1,4 @@
-import {
-  MainNavigationData,
-  DropDown,
-  PageLink,
-} from "@/components/navigation/NavigationDropdown/DropdownStrcture";
+import { MainNavigationData, DropDown, PageLink } from "@/components/navigation/DropdownStructure";
 
 export const WebsiteMainNavigationData: MainNavigationData = {
   mainNavItems: [

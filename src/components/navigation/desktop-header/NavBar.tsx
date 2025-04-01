@@ -1,11 +1,7 @@
 "use client";
 import Link from "next/link";
 import DropDownMenu from "./DropDown";
-import {
-  MainNavigationData,
-  DropDown,
-  PageLink,
-} from "@/components/navigation/NavigationDropdown/DropdownStrcture";
+import { MainNavigationData, DropDown, PageLink } from "@/components/navigation/DropdownStructure";
 import { useState } from "react";
 import { AnimatePresence, easeOut, motion } from "motion/react";
 
