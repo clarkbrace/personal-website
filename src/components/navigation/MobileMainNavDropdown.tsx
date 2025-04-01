@@ -7,7 +7,6 @@ function MobileMainNavDropdown() {
 
   return (
     <div>
-      {" "}
       {menuOpen ? (
         <></>
       ) : (
@@ -15,7 +14,7 @@ function MobileMainNavDropdown() {
           className="bg-hamburgerSymbol bg-contain aspect-square hover:scale-105 h-16 bg-no-repeat"
           onClick={() => setMenuOpen(true)}
         ></div>
-      )}{" "}
+      )}
     </div>
   );
 }
@@ -23,8 +22,5 @@ function MobileMainNavDropdown() {
 export default MobileMainNavDropdown;
 
 const dropDownPanel = (closeMenu: () => {}) => {
-    return <div className="flex flex-col">
-        
-
-    </div>
+  return <div className="flex flex-col"></div>;
 };
