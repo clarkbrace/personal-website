@@ -4,7 +4,7 @@ interface Props {
   setOpenNavMenu: (value: boolean) => void;
 }
 
-function MobileHeaderLeftNav({ setOpenNavMenu }: Props) {
+export default function NavigationSelector({ setOpenNavMenu }: Props) {
   return (
     <div className="flex flex-col justify-between items-end">
       <div
@@ -21,5 +21,3 @@ function MobileHeaderLeftNav({ setOpenNavMenu }: Props) {
     </div>
   );
 }
-
-export default MobileHeaderLeftNav;

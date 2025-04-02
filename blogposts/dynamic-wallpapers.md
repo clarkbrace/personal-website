@@ -1,6 +1,6 @@
 ---
 title: "Dynamic Wallpaper Project"
-excerpt: "Choosing a good PC wallpaper can be hard. Join me as I go through the process of making my own"
+excerpt: "Choosing a good PC wallpaper can be hard. Join me as I go through the process of making my own."
 coverImage: "/blogposts/DynamicWallpapersPost/Dynamic-WP-Cover.jpg"
 date: "2025-03-26T05:51:19Z"
 author: Clark Brace
