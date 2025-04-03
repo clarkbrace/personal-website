@@ -1,6 +1,5 @@
-
 import { MainNavigationData, DropDown, PageLink } from "@/components/navigation/DropdownStructure";
-import NavigationDropDown from "./RootDropDown";
+import RootNavigationDropDown from "./RootDropDown";
 import RootNavigationLink from "./RootNavigationLink";
 
 interface siteStructureProps {
@@ -15,7 +14,7 @@ export default function NavigationBar({ MainNavigationData }: siteStructureProps
           case "pagelink":
             return <RootNavigationLink pageLink={NavigationItem} />;
           case "dropdown":
-            return <NavigationDropDown dropDown={NavigationItem} />;
+            return <RootNavigationDropDown dropDown={NavigationItem} />;
         }
       })}
     </div>

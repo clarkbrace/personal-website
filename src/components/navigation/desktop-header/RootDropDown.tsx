@@ -9,7 +9,7 @@ interface MainNavDropDownProps {
   dropDown: DropDown;
 }
 
-export default function NavigationDropDown(props: MainNavDropDownProps) {
+export default function RootNavigationDropDown({ dropDown }: MainNavDropDownProps) {
   const [open, setOpen] = useState(false);
 
   return (
@@ -18,14 +18,14 @@ export default function NavigationDropDown(props: MainNavDropDownProps) {
       onMouseEnter={() => setOpen(true)}
       onMouseLeave={() => setOpen(false)}
     >
-      <RootNavigationCard label={props.dropDown.label} />
+      <RootNavigationCard label={dropDown.label} />
       <AnimatePresence>
         {open && (
           <VerticalSlideAnimation>
             <div className="absolute h-[20px] w-full"></div>
             <UpwardArrow />
             <div className="translate-y-[20px]">
-              <NestedDropDown navigationElements={props.dropDown.dropDownItems} first={true} />
+              <NestedDropDown navigationElements={dropDown.dropDownItems} first={true} />
             </div>
           </VerticalSlideAnimation>
         )}
